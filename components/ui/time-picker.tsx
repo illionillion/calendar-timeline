@@ -59,8 +59,8 @@ export function TimePicker({ date, setDate, minTime }: TimePickerProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
-        <div className="flex h-[300px] w-[280px] flex-col justify-between p-2">
-          <div className="flex justify-center pt-4">
+        <div className="flex h-auto w-[280px] flex-col justify-between py-2">
+          <div className="flex justify-center p-2">
             <div className="flex items-center space-x-2">
               <Select
                 value={selectedHour.toString()}
