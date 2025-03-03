@@ -39,7 +39,6 @@ export function EventDialog({
   colorOptions,
   event,
 }: EventDialogProps) {
-  console.log(event)
   const [title, setTitle] = useState(event?.title || "")
   const [selectedColor, setSelectedColor] = useState(event?.color || colorOptions[0])
   const [start, setStart] = useState(startTime)
