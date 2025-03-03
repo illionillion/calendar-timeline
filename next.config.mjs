@@ -22,10 +22,10 @@ const nextConfig = {
     parallelServerCompiles: true,
   },
   // デプロイ先のパス名を記載。ルートディレクトリなら記載の必要なし
-  basePath: "/calendar-timeline",
+  basePath: process.env.GITHUB_PAGES ? "/calendar-timeline" : "",
   // 必ず下記を追記
   output: "export",
-  distDir: 'docs',
+  distDir: process.env.GITHUB_PAGES ? "docs" : "build",
 }
 
 mergeConfig(nextConfig, userConfig)
