@@ -80,7 +80,6 @@ interface PositionedEvent extends Event {
 export function DayTimeline() {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [events, setEvents] = useState<Event[]>(initialEvents)
-  console.log(events)
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState<number | null>(null)
   const [dragEnd, setDragEnd] = useState<number | null>(null)
@@ -164,7 +163,6 @@ export function DayTimeline() {
 
   // 新しいイベントを追加または既存のイベントを更新
   const handleSaveEvent = (eventData: { id?: number; title: string; color: string; start: Date; end: Date }) => {
-    console.log(eventData.id)
     if (eventData.id) {
       // 既存のイベントを更新
       setEvents(events.map((event) => (event.id === eventData.id ? { ...event, ...eventData } : event)))
@@ -174,7 +172,6 @@ export function DayTimeline() {
         ...eventData,
         id: events.length + 1,
       }
-      console.log(newEvent, events.length + 1)
       setEvents([...events, newEvent])
     }
     setShowEventDialog(false)
