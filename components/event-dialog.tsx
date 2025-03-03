@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useEffect } from "react"
+import { useState, useEffect, FormEvent } from "react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -69,7 +67,7 @@ export function EventDialog({
     setEnd(newDate)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     onSave({
       id: event?.id,
@@ -120,9 +118,8 @@ export function EventDialog({
                     <RadioGroupItem value={color} id={`color-${index}`} className="sr-only" />
                     <Label
                       htmlFor={`color-${index}`}
-                      className={`w-6 h-6 rounded-full cursor-pointer border-2 ${
-                        selectedColor === color ? "ring-2 ring-offset-2 ring-primary" : ""
-                      } ${color.split(" ")[0]}`}
+                      className={`w-6 h-6 rounded-full cursor-pointer border-2 ${selectedColor === color ? "ring-2 ring-offset-2 ring-primary" : ""
+                        } ${color.split(" ")[0]}`}
                     />
                   </div>
                 ))}

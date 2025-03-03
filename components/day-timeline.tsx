@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useRef, useMemo } from "react"
+import { useState, useRef, useMemo, MouseEvent } from "react"
 import { format, addDays, subDays } from "date-fns"
 import { ja } from "date-fns/locale"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -102,7 +100,7 @@ export function DayTimeline() {
   }
 
   // マウスダウンでドラッグ開始
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = (e: MouseEvent) => {
     if (!timelineRef.current) return
     console.log("handleMouseDown")
 
@@ -115,7 +113,7 @@ export function DayTimeline() {
   }
 
   // マウス移動でドラッグ中
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging || !timelineRef.current) return
     console.log("handleMouseMove")
 
