@@ -23,7 +23,6 @@ const nextConfig = {
   },
   // デプロイ先のパス名を記載。ルートディレクトリなら記載の必要なし
   basePath: "/calendar-timeline",
-  assetPrefix: "/calendar-timeline/",
   // 必ず下記を追記
   output: "export",
   distDir: 'docs',

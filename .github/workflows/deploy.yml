@@ -33,15 +33,18 @@ jobs:
           node --version
           pnpm install
 
-      - name: build
+      - name: Build
         run: |
           pnpm build
         env:
           GITHUB_PAGES: true
 
+      - name: Create .nojekyll file
+        run: |
+          touch docs/.nojekyll
+
       - name: Push to GitHub
         uses: EndBug/add-and-commit@main
         with:
-          # ブランチ名はデフォルトブランチ名にする(main or master)
           branch: main
           message: ":rocket: Update"
