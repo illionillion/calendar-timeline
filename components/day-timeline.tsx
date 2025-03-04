@@ -276,7 +276,7 @@ export function DayTimeline() {
       {/* タイムライン */}
       <div className="flex relative">
         {/* 時間表示カラム（固定） */}
-        <div className="w-16 flex-shrink-0 border-r absolute left-0 top-0 bottom-0 bg-white z-10 select-none">
+        <div className="w-16 flex-shrink-0 border-r absolute left-0 top-0 bottom-0 bg-white z-10 select-none rounded-bl-full">
           {timeSlots.map((hour) => (
             <TimeSlot key={hour} hour={hour} />
           ))}
@@ -297,10 +297,10 @@ export function DayTimeline() {
             onMouseLeave={handleMouseUp}
           >
             {/* 時間区切り線 */}
-            {timeSlots.map((hour) => (
+            {timeSlots.map((hour, index) => (
               <div
                 key={hour}
-                className={cn("absolute w-full border-t border-gray-200", "h-[60px]")}
+                className={cn(`absolute w-full ${ index !== 0 ? "border-t" : ""} border-gray-200`, "h-[60px]")}
                 style={{ top: `${hour * 60}px` }}
               >
                 <div className="h-full w-full"></div>
