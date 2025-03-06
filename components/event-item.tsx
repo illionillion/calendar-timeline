@@ -46,6 +46,7 @@ export function EventItem({ event, startHour, onClick }: EventItemProps) {
         minWidth: "120px", // 最小幅を設定
       }}
       onClick={onClick}
+      onTouchEnd={onClick}
     >
       <div className="font-medium truncate">{event.title}</div>
       <div className="text-xs truncate">{`${formatTime(event.start)} - ${formatTime(event.end)}`}</div>

@@ -99,34 +99,34 @@ export function DayTimeline() {
     setSelectedDate(new Date())
   }
 
-  // マウスダウンでドラッグ開始
-  const handleMouseDown = (e: MouseEvent) => {
+  // ドラッグ開始
+  const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
     if (!timelineRef.current) return
-    console.log("handleMouseDown")
+    console.log("handleStart")
 
     const rect = timelineRef.current.getBoundingClientRect()
-    const y = e.clientY - rect.top
+    const y = "touches" in e ? e.touches[0].clientY - rect.top : e.clientY - rect.top
 
     setIsDragging(true)
     setDragStart(y)
     setDragEnd(y)
   }
 
-  // マウス移動でドラッグ中
-  const handleMouseMove = (e: MouseEvent) => {
+  // ドラッグ中
+  const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging || !timelineRef.current) return
-    console.log("handleMouseMove")
+    console.log("handleMove")
 
     const rect = timelineRef.current.getBoundingClientRect()
-    const y = e.clientY - rect.top
+    const y = "touches" in e ? e.touches[0].clientY - rect.top : e.clientY - rect.top
 
     setDragEnd(y)
   }
 
-  // マウスアップでドラッグ終了
-  const handleMouseUp = () => {
+  // ドラッグ終了
+  const handleEnd = () => {
     if (!isClicked && isDragging && dragStart !== null && dragEnd !== null) {
-      console.log("handleMouseUp")
+      console.log("handleEnd")
       // ドラッグ範囲から時間を計算
       const startMinutes = Math.min(dragStart, dragEnd)
       const endMinutes = Math.max(dragStart, dragEnd)
@@ -152,7 +152,7 @@ export function DayTimeline() {
       setNewEventTimes({ start: startDate, end: endDate })
       setShowEventDialog(true)
     }
-    console.log("handleMouseUpEnd")
+    console.log("handleEndComplete")
     setIsDragging(false)
     setDragStart(null)
     setDragEnd(null)
@@ -206,7 +206,7 @@ export function DayTimeline() {
   }
 
   // イベントの重なりを検出し、位置を計算する関数
-  const calculateEventPositions = (events: Event[]): PositionedEvent[] => {
+  const calculateEventPositions = (events: Event[], selectedDate: Date): PositionedEvent[] => {
     const sortedEvents = [...events].sort((a, b) => a.start.getTime() - b.start.getTime())
     const columns: PositionedEvent[][] = []
 
@@ -245,8 +245,8 @@ export function DayTimeline() {
         eventDate.getFullYear() === selectedDate.getFullYear()
       )
     })
-    return calculateEventPositions(filteredEvents)
-  }, [events, selectedDate]) // Removed calculateEventPositions from dependencies
+    return calculateEventPositions(filteredEvents, selectedDate)
+  }, [events, selectedDate])
 
   // 最大の列数を計算
   const maxColumns = useMemo(() => {
@@ -291,16 +291,19 @@ export function DayTimeline() {
               minWidth: `${maxColumns * 180}px`,
               height: `${timeSlots.length * 60}px`,
             }}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
+            onMouseDown={handleStart}
+            onMouseMove={handleMove}
+            onMouseUp={handleEnd}
+            onMouseLeave={handleEnd}
+            onTouchStart={handleStart}
+            onTouchMove={handleMove}
+            onTouchEnd={handleEnd}
           >
             {/* 時間区切り線 */}
             {timeSlots.map((hour, index) => (
               <div
                 key={hour}
-                className={cn(`absolute w-full ${ index !== 0 ? "border-t" : ""} border-gray-200`, "h-[60px]")}
+                className={cn(`absolute w-full ${index !== 0 ? "border-t" : ""} border-gray-200`, "h-[60px]")}
                 style={{ top: `${hour * 60}px` }}
               >
                 <div className="h-full w-full"></div>
