@@ -254,9 +254,9 @@ export function DayTimeline() {
   }, [positionedEvents])
 
   return (
-    <div className="border rounded-lg shadow-sm">
+    <div className="border rounded-lg shadow-sm max-h-[85vh] overflow-y-auto">
       {/* ヘッダー */}
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center justify-between p-4 border-b sticky top-0 z-30 bg-white">
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" onClick={handlePrevDay}>
             <ChevronLeft className="h-4 w-4" />
